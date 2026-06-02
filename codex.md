@@ -2,6 +2,42 @@
 
 本文档给后续 Codex 接手 `tansyqinyrproj` 使用，记录运行方式、依赖、模型位置和每次主要修改。
 
+## 项目总览
+
+`tansyqinyrproj` 是一个基于 Flask + Vue 2 的数字图像处理项目。后端负责图片上传、OpenCV 图像处理、身份证 OCR、深度学习车牌识别和车辆/车主档案 API；前端负责提供工作台式 UI，并通过 Flask 直接服务已经构建好的 `firstend/dist`。
+
+当前项目能力：
+
+- 基础图像处理：`/upload/0` 到 `/upload/39`，包含噪声、平滑、锐化、变换、颜色空间、形态学、边缘检测等功能
+- 神经风格迁移：`/upload/51` 到 `/upload/59`，使用 `models/*.t7`
+- 身份证 OCR：`/upload/50`，依赖本机 Tesseract 和项目内 `tessdata/*.traineddata`
+- 车牌识别：`/plate/recognize`，使用 HyperLPR3 和项目内 ONNX 模型
+- 车辆档案：支持车牌查车主、身份证查车辆、车辆车主关系变更和历史追溯
+
+关键目录和文件：
+
+- `app.py`：Flask 入口，提供页面、上传接口和车辆档案 API
+- `config.py`：上传目录、Tesseract 路径和 `TESSDATA_PREFIX`
+- `core/process.py`：基础图像处理和风格迁移调用
+- `core/ocr_operation.py`：身份证 OCR 主流程
+- `core/plate_operation.py`：HyperLPR3 车牌识别封装
+- `core/vehicle_db.py`：SQLite 车辆/车主数据库初始化、查询和关系变更
+- `firstend/src/`：Vue 前端源码
+- `firstend/dist/`：Flask 实际服务的前端构建产物，必须保留
+- `models/`：风格迁移 `.t7` 模型和 HyperLPR3 `.onnx` 模型
+- `tessdata/`：OCR 语言包
+- `uploads/`：演示图片、OCR 样例、车牌测试图
+- `tmp/`：项目演示和运行输出图片；提交前要区分样例资产和单次测试垃圾
+- `data/vehicle_owner.db`：车辆/车主 SQLite 种子库
+
+接手优先级：
+
+1. 先确认 `config.py` 里的 Tesseract 路径和当前机器一致。
+2. 再运行 `python app.py`，打开 `http://127.0.0.1:5000/`。
+3. 如果要验证新增能力，优先跑 `python test_plate_vehicle.py` 和 `python test_all_features.py`。
+4. 修改前端后必须重新构建 `firstend/dist`，因为后端直接服务构建产物。
+5. 提交前检查二进制资产：模型、`.traineddata`、重要图片、SQLite 种子库应提交；`.venv`、`node_modules`、`__pycache__` 和无意义临时输出不要提交。
+
 ## 运行方式
 
 ### Python 依赖
