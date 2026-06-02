@@ -1,25 +1,29 @@
 <template>
-
-    <div class="header-content">
-      <span style="color: #21b3b9; font-weight: bold; font-size: 30px">
-        <i class="el-icon-star-off" style="font-size: 30px"></i
-        >QTProj
-      </span>
-      <span>
-        <i class="el-icon-star" style="font-size: 30px"></i>支持基础的图像处理以及文字识别功能
-      </span>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">{{ currentGroup }}</div>
+      <h1>{{ currentTitle }}</h1>
     </div>
+    <div class="topbar-metrics">
+      <div class="metric"><strong>49</strong><span>图像能力</span></div>
+      <div class="metric"><strong>9</strong><span>风格模型</span></div>
+      <div class="metric"><strong>1</strong><span>OCR 流程</span></div>
+    </div>
+  </header>
 </template>
 
-<style>
-.header-content {
-  display: flex;
-  align-items: center;
-  margin-right: 20px; /* 设置内容距离右侧的间距 */
-  font-size: 23px; /* 设置字体大小 */
-}
-
-.header-content i {
-  margin-right: 5px; /* 设置图标与文字之间的间距 */
-}
-</style>
+<script>
+export default {
+  name: "Header",
+  props: {
+    currentTitle: {
+      type: String,
+      default: "数字图像处理",
+    },
+    currentGroup: {
+      type: String,
+      default: "工作台",
+    },
+  },
+};
+</script>

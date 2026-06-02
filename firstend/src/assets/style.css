@@ -1,90 +1,609 @@
-@font-face {
-    font-family: "iconfont"; /* project id 1171507 */
-    src: url("//at.alicdn.com/t/font_1171507_ki84ccb8hzk.eot");
-    src: url("//at.alicdn.com/t/font_1171507_ki84ccb8hzk.eot?#iefix")
-        format("embedded-opentype"),
-      url("//at.alicdn.com/t/font_1171507_ki84ccb8hzk.woff2") format("woff2"),
-      url("//at.alicdn.com/t/font_1171507_ki84ccb8hzk.woff") format("woff"),
-      url("//at.alicdn.com/t/font_1171507_ki84ccb8hzk.ttf") format("truetype"),
-      url("//at.alicdn.com/t/font_1171507_ki84ccb8hzk.svg#iconfont") format("svg");
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  color: #1c2430;
+  background: #eef1f6;
+  font-family: "Inter", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+.studio-shell {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  min-height: 100vh;
+  background:
+    linear-gradient(90deg, #17202a 0, #17202a 300px, #eef1f6 300px, #eef1f6 100%);
+}
+
+.studio-nav {
+  height: 100vh;
+  padding: 24px 18px;
+  color: #e7edf5;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.brand-mark {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 8px;
+  color: #111827;
+  background: #f4c95d;
+  font-weight: 800;
+}
+
+.brand-title {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.brand-subtitle {
+  margin-top: 2px;
+  color: #9fb1c7;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nav-hero,
+.nav-pill {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  border-radius: 8px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.nav-hero {
+  gap: 10px;
+  margin-bottom: 22px;
+  padding: 0 14px;
+  background: #2d7d8f;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.nav-hero.router-link-active,
+.nav-hero:hover {
+  background: #39a7a5;
+}
+
+.nav-section {
+  margin-top: 18px;
+}
+
+.nav-section-title {
+  margin: 0 6px 8px;
+  color: #f4c95d;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nav-pill {
+  gap: 10px;
+  margin: 4px 0;
+  padding: 0 10px;
+  color: #b9c5d3;
+  border: 1px solid transparent;
+}
+
+.nav-pill:hover,
+.nav-pill.active,
+.nav-pill.router-link-active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(244, 201, 93, 0.28);
+}
+
+.nav-index {
+  display: inline-grid;
+  min-width: 34px;
+  height: 24px;
+  padding: 0 6px;
+  place-items: center;
+  border-radius: 6px;
+  color: #17202a;
+  background: #dbe5ef;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.nav-pill.active .nav-index,
+.nav-pill.router-link-active .nav-index {
+  background: #f4c95d;
+}
+
+.nav-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studio-main {
+  min-width: 0;
+  padding: 26px 30px 34px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.topbar h1,
+.stage-toolbar h2,
+.reference-head h2,
+.identity-head h2 {
+  margin: 4px 0 0;
+  color: #17202a;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.eyebrow,
+.stage-kicker {
+  color: #2d7d8f;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.topbar-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(96px, 1fr));
+  gap: 10px;
+}
+
+.metric {
+  min-height: 66px;
+  padding: 10px 12px;
+  border: 1px solid #d8e0ea;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.metric strong {
+  display: block;
+  color: #c44939;
+  font-size: 22px;
+}
+
+.metric span {
+  color: #687789;
+  font-size: 13px;
+}
+
+.workspace-band {
+  display: grid;
+  gap: 18px;
+}
+
+.tool-stage,
+.ocr-stage,
+.reference-strip {
+  border: 1px solid #d8e0ea;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(23, 32, 42, 0.08);
+}
+
+.tool-stage,
+.ocr-stage {
+  padding: 22px;
+}
+
+.stage-toolbar,
+.identity-head,
+.reference-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.ghost-button,
+.primary-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid #cfd8e3;
+  cursor: pointer;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: normal;
+}
+
+.ghost-button {
+  padding: 0 14px;
+  color: #17202a;
+  background: #f8fafc;
+}
+
+.ghost-button:hover {
+  border-color: #2d7d8f;
+  color: #2d7d8f;
+}
+
+.primary-action {
+  padding: 0 18px;
+  border-color: #2d7d8f;
+  color: #ffffff;
+  background: #2d7d8f;
+}
+
+.primary-action:hover {
+  background: #226878;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.image-comparison {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) 56px minmax(260px, 1fr);
+  align-items: stretch;
+  gap: 16px;
+}
+
+.image-panel {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  border: 1px solid #dce3ec;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 16px;
+  color: #17202a;
+  background: #edf3f8;
+  font-weight: 800;
+}
+
+.panel-head small {
+  color: #728196;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.image-frame {
+  display: grid;
+  min-height: 320px;
+  padding: 14px;
+  place-items: center;
+}
+
+.workspace-image {
+  display: block;
+  width: 100%;
+  height: 320px;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.workspace-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.upload-empty,
+.result-empty {
+  display: grid;
+  width: 100%;
+  height: 320px;
+  place-items: center;
+  color: #687789;
+  border: 1px dashed #b8c5d4;
+  border-radius: 8px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.flow-indicator {
+  display: grid;
+  min-height: 320px;
+  place-items: center;
+  color: #ffffff;
+  border-radius: 8px;
+  background: #c44939;
+  font-size: 24px;
+}
+
+.reference-strip {
+  padding: 18px;
+}
+
+.reference-head {
+  margin-bottom: 14px;
+}
+
+.reference-head h2 {
+  font-size: 22px;
+}
+
+.reference-images {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.reference-images figure {
+  margin: 0;
+}
+
+.reference-image {
+  width: 100%;
+  height: 260px;
+  border-radius: 8px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.reference-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.reference-images figcaption {
+  margin-top: 8px;
+  color: #687789;
+  font-size: 13px;
+}
+
+.ocr-stage {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(360px, 1.1fr);
+  gap: 18px;
+}
+
+.ocr-upload-panel,
+.identity-panel {
+  min-width: 0;
+}
+
+.ocr-frame,
+.ocr-frame .workspace-image,
+.ocr-frame .upload-empty {
+  min-height: 390px;
+  height: 390px;
+}
+
+.identity-panel {
+  padding: 18px;
+  border: 1px solid #dce3ec;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  color: #687789;
+  background: #e5ebf2;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.status-chip.ready {
+  color: #123f2b;
+  background: #bfe7c8;
+}
+
+.identity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.identity-field {
+  min-height: 94px;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #d8e0ea;
+  background: #ffffff;
+}
+
+.identity-field.wide {
+  grid-column: span 2;
+}
+
+.identity-field.full {
+  grid-column: 1 / -1;
+}
+
+.identity-field small {
+  display: block;
+  margin-bottom: 8px;
+  color: #728196;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.identity-field strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #17202a;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+.identity-field.address strong {
+  font-size: 16px;
+}
+
+.registry-page {
+  display: grid;
+  gap: 18px;
+}
+
+.registry-card {
+  padding: 22px;
+  border: 1px solid #d8e0ea;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 45px rgba(23, 32, 42, 0.08);
+}
+
+.query-row {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.relation-form {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(120px, 1fr)) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.plate-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.plate-chip {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid #cfd8e3;
+  border-radius: 999px;
+  color: #17202a;
+  background: #ffffff;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.plate-chip:hover {
+  color: #ffffff;
+  border-color: #2d7d8f;
+  background: #2d7d8f;
+}
+
+.linked-vehicles {
+  grid-column: 1 / -1;
+}
+
+.registry-card .el-table,
+.identity-panel .el-table {
+  width: 100%;
+}
+
+.el-dialog {
+  border-radius: 8px;
+}
+
+@media (max-width: 1100px) {
+  .studio-shell {
+    grid-template-columns: 240px minmax(0, 1fr);
+    background: linear-gradient(90deg, #17202a 0, #17202a 240px, #eef1f6 240px, #eef1f6 100%);
   }
-  @font-face {
-    font-family: "iconfont"; /* project id 1171507 */
-    src: url("//at.alicdn.com/t/font_1171507_1e4m208yftt.eot");
-    src: url("//at.alicdn.com/t/font_1171507_1e4m208yftt.eot?#iefix")
-        format("embedded-opentype"),
-      url("//at.alicdn.com/t/font_1171507_1e4m208yftt.woff2") format("woff2"),
-      url("//at.alicdn.com/t/font_1171507_1e4m208yftt.woff") format("woff"),
-      url("//at.alicdn.com/t/font_1171507_1e4m208yftt.ttf") format("truetype"),
-      url("//at.alicdn.com/t/font_1171507_1e4m208yftt.svg#iconfont") format("svg");
+
+  .topbar,
+  .stage-toolbar,
+  .identity-head {
+    align-items: flex-start;
+    flex-direction: column;
   }
-  @font-face {
-    font-family: "iconfont"; /* project id 1171507 */
-    src: url("//at.alicdn.com/t/font_1171507_2skehui6htm.eot");
-    src: url("//at.alicdn.com/t/font_1171507_2skehui6htm.eot?#iefix")
-        format("embedded-opentype"),
-      url("//at.alicdn.com/t/font_1171507_2skehui6htm.woff2") format("woff2"),
-      url("//at.alicdn.com/t/font_1171507_2skehui6htm.woff") format("woff"),
-      url("//at.alicdn.com/t/font_1171507_2skehui6htm.ttf") format("truetype"),
-      url("//at.alicdn.com/t/font_1171507_2skehui6htm.svg#iconfont") format("svg");
+
+  .topbar-metrics {
+    width: 100%;
   }
-  @font-face {
-    font-family: "iconfont"; /* project id 1171507 */
-    src: url("//at.alicdn.com/t/font_1171507_m12v7ykool.eot");
-    src: url("//at.alicdn.com/t/font_1171507_m12v7ykool.eot?#iefix")
-        format("embedded-opentype"),
-      url("//at.alicdn.com/t/font_1171507_m12v7ykool.woff2") format("woff2"),
-      url("//at.alicdn.com/t/font_1171507_m12v7ykool.woff") format("woff"),
-      url("//at.alicdn.com/t/font_1171507_m12v7ykool.ttf") format("truetype"),
-      url("//at.alicdn.com/t/font_1171507_m12v7ykool.svg#iconfont") format("svg");
+
+  .image-comparison,
+  .ocr-stage {
+    grid-template-columns: 1fr;
   }
-  @font-face {
-    font-family: 'iconfont';  /* project id 1171507 */
-    src: url('//at.alicdn.com/t/font_1171507_ptv9kzz2fu.eot');
-    src: url('//at.alicdn.com/t/font_1171507_ptv9kzz2fu.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1171507_ptv9kzz2fu.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1171507_ptv9kzz2fu.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1171507_ptv9kzz2fu.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1171507_ptv9kzz2fu.svg#iconfont') format('svg');
+
+  .flow-indicator {
+    min-height: 42px;
   }
-  @font-face {
-    font-family: 'iconfont';  /* project id 1171507 */
-    src: url('//at.alicdn.com/t/font_1171507_99rgegvq24p.eot');
-    src: url('//at.alicdn.com/t/font_1171507_99rgegvq24p.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1171507_99rgegvq24p.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1171507_99rgegvq24p.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1171507_99rgegvq24p.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1171507_99rgegvq24p.svg#iconfont') format('svg');
+}
+
+@media (max-width: 760px) {
+  .studio-shell {
+    display: block;
+    background: #eef1f6;
   }
-  .iconfont {
-    font-family: "iconfont" !important;
-    font-size: 18px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
+
+  .studio-nav {
+    height: auto;
+    max-height: 44vh;
+    background: #17202a;
   }
-  .iconfont_tele{
-    font-family: "iconfont" !important;
-    font-size: 40px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
+
+  .studio-main {
+    padding: 18px 14px 28px;
   }
-  .iconfont_image {
-    font-family: "iconfont" !important;
-    font-size: 60px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
+
+  .topbar-metrics,
+  .reference-images,
+  .identity-grid,
+  .query-row,
+  .relation-form {
+    grid-template-columns: 1fr;
   }
-  .iconfont_phone {
-    font-family: "iconfont" !important;
-    font-size: 22px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
+
+  .identity-field,
+  .identity-field.wide,
+  .identity-field.full {
+    grid-column: auto;
   }
+}

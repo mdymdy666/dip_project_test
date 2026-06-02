@@ -60,6 +60,26 @@ const routes = [
                 component: () => import("../views/50OCR.vue"),
                 name: 'OCR',
             },
+            {
+                path: '/plate/recognize',
+                component: () => import("../views/PlateRecognition.vue"),
+                name: 'PlateRecognition',
+            },
+            {
+                path: '/vehicle/search',
+                component: () => import("../views/VehicleLookup.vue"),
+                name: 'VehicleLookup',
+            },
+            {
+                path: '/owner/search',
+                component: () => import("../views/OwnerLookup.vue"),
+                name: 'OwnerLookup',
+            },
+            {
+                path: '/relations',
+                component: () => import("../views/RelationshipManager.vue"),
+                name: 'RelationshipManager',
+            },
             ...routess,
             ...routesss,
         ]

@@ -1,97 +1,113 @@
 <template>
-  <div class="layout">
-      <el-container>
-          <div class="sidebar-container"><!--Aside-->
-                <el-menu mode="vertical"
-                        :default-active="this.$route.path" router
-                         :router="true"
-                         active-text-colo="ffd04b"
-                         class="sidebar">
+  <div class="studio-shell">
+    <aside class="studio-nav">
+      <div class="brand-block">
+        <div class="brand-mark">QT</div>
+        <div>
+          <div class="brand-title">QTProj</div>
+          <div class="brand-subtitle">Digital Image Lab</div>
+        </div>
+      </div>
 
-                    <el-menu-item index="/">数字图像处理平台</el-menu-item>
-                    <!-- index要绑定路由上的path   -->
-                    <el-menu-item index="/upload/50">OCR处理</el-menu-item>
-                    <el-menu-item index="/upload/51">风格转换-糖果</el-menu-item>
-                    <el-menu-item index="/upload/52">风格转换-星空</el-menu-item>
-                    <el-menu-item index="/upload/53">风格转换-毕加索</el-menu-item>
-                    <el-menu-item index="/upload/54">风格转换-缪斯</el-menu-item>
-                    <el-menu-item index="/upload/55">风格转换-马赛克</el-menu-item>
-                    <el-menu-item index="/upload/56">风格转换-神奈川冲浪里</el-menu-item>
-                    <el-menu-item index="/upload/57">风格转换-达达主义</el-menu-item>
-                    <el-menu-item index="/upload/58">风格转换-呐喊</el-menu-item>
-                    <el-menu-item index="/upload/59">风格转换-羽毛</el-menu-item>
-                    <el-menu-item index="/upload/0">添加椒盐噪声</el-menu-item>
-                    <el-menu-item index="/upload/1">均值平滑</el-menu-item>
-                    <el-menu-item index="/upload/2">中值平滑</el-menu-item>
-                    <el-menu-item index="/upload/3">高斯平滑</el-menu-item>
-                    <el-menu-item index="/upload/4">图像锐化-拉普拉斯算子</el-menu-item>
-                    <el-menu-item index="/upload/5">图像锐化-Sobel算子水平方向</el-menu-item>
-                    <el-menu-item index="/upload/6">图像锐化-Sobel算子垂直方向</el-menu-item>
-                    <el-menu-item index="/upload/7">双线性插值法扩大图像</el-menu-item>
-                    <el-menu-item index="/upload/8">左移30个像素，下移50个像素</el-menu-item>
-                    <el-menu-item index="/upload/9">旋转45度，缩放因子为1</el-menu-item>
-                    <el-menu-item index="/upload/10">转灰度图</el-menu-item>
-                    <el-menu-item index="/upload/11">转灰度后二值化-全局阈值法</el-menu-item>
-                    <el-menu-item index="/upload/12">直方图均衡化</el-menu-item>
-                    <el-menu-item index="/upload/13">灰度直方图</el-menu-item>
-                    <el-menu-item index="/upload/14">仿射变换</el-menu-item>
-                    <el-menu-item index="/upload/15">透视变换</el-menu-item>
-                    <el-menu-item index="/upload/16">图像翻转</el-menu-item>
-                    <el-menu-item index="/upload/17">rgb转hsv</el-menu-item>
-                    <el-menu-item index="/upload/18">hsv获取h</el-menu-item>
-                    <el-menu-item index="/upload/19">hsv获取s</el-menu-item>
-                    <el-menu-item index="/upload/20">hsv获取v</el-menu-item>
-                    <el-menu-item index="/upload/21">rgb获取b</el-menu-item>
-                    <el-menu-item index="/upload/22">rgb获取g</el-menu-item>
-                    <el-menu-item index="/upload/23">rgb获取r</el-menu-item>
-                    <el-menu-item index="/upload/24">水平翻转</el-menu-item>
-                    <el-menu-item index="/upload/25">垂直翻转</el-menu-item>
-                    <el-menu-item index="/upload/26">对角镜像</el-menu-item>
-                    <el-menu-item index="/upload/27">图像开运算</el-menu-item>
-                    <el-menu-item index="/upload/28">图像闭运算</el-menu-item>
-                    <el-menu-item index="/upload/29">腐蚀</el-menu-item>
-                    <el-menu-item index="/upload/30">膨胀</el-menu-item>
-                    <el-menu-item index="/upload/31">顶帽运算</el-menu-item>
-                    <el-menu-item index="/upload/32">底帽运算</el-menu-item>
-                    <el-menu-item index="/upload/33">houghLinesP实现线条检测</el-menu-item>
-                    <el-menu-item index="/upload/34">canny边缘检测</el-menu-item>
-                    <el-menu-item index="/upload/35">图像增强</el-menu-item>
-                    <el-menu-item index="/upload/36">Roberts算子提取图像边缘</el-menu-item>
-                    <el-menu-item index="/upload/37">Prewitt 算子提取图像边缘</el-menu-item>
-                    <el-menu-item index="/upload/38">Laplacian算子提取图像边缘</el-menu-item>
-                    <el-menu-item index="/upload/39">LoG边缘提取</el-menu-item>
+      <router-link class="nav-hero" to="/upload/50">
+        <i class="el-icon-document"></i>
+        <span>OCR 身份证识别</span>
+      </router-link>
 
-                </el-menu>
-            </div><!-- 侧边栏 -->
-          <el-container>
-              <el-header class="header">
-                  <app-header />
-              </el-header>
-              <el-main>
-                  <div>
-                      <router-view name="default" />
-                      <router-view name="footer" />
-                  </div>
-              </el-main>
-          </el-container>
+      <section v-for="group in groups" :key="group.title" class="nav-section">
+        <div class="nav-section-title">{{ group.title }}</div>
+        <router-link
+          v-for="item in group.items"
+          :key="item.path"
+          :to="item.path"
+          class="nav-pill"
+          :class="{ active: $route.path === item.path }"
+        >
+          <span class="nav-index">{{ item.id }}</span>
+          <span class="nav-label">{{ item.name }}</span>
+        </router-link>
+      </section>
+    </aside>
 
-        </el-container>
-
+    <main class="studio-main">
+      <app-header :current-title="currentTitle" :current-group="currentGroup" />
+      <div class="workspace-band">
+        <router-view name="default" />
+        <router-view name="footer" />
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
-
 import Header from "./Header.vue";
 
-export default {
-    name: 'Layout',
-    components: {
-        'app-header':Header,
-    },
-    data() {},
-}
-</script>
-<style>
+const styleItems = [
+  [51, "糖果"], [52, "星空"], [53, "毕加索"], [54, "缪斯"],
+  [55, "马赛克"], [56, "神奈川冲浪里"], [57, "达达主义"],
+  [58, "呐喊"], [59, "羽毛"],
+];
 
-</style>
+const baseItems = [
+  [0, "椒盐噪声"], [1, "均值平滑"], [2, "中值平滑"], [3, "高斯平滑"],
+  [4, "拉普拉斯锐化"], [5, "Sobel 水平"], [6, "Sobel 垂直"],
+  [7, "双线性放大"], [8, "平移"], [9, "旋转缩放"],
+  [10, "灰度图"], [11, "全局阈值"], [12, "直方图均衡"],
+  [13, "灰度直方图"], [14, "仿射变换"], [15, "透视变换"],
+  [16, "反色翻转"], [17, "RGB 转 HSV"], [18, "HSV-H"],
+  [19, "HSV-S"], [20, "HSV-V"], [21, "RGB-B"], [22, "RGB-G"],
+  [23, "RGB-R"], [24, "水平翻转"], [25, "垂直翻转"],
+  [26, "对角镜像"], [27, "开运算"], [28, "闭运算"],
+  [29, "腐蚀"], [30, "膨胀"], [31, "顶帽运算"], [32, "底帽运算"],
+  [33, "Hough 线检测"], [34, "Canny 边缘"], [35, "图像增强"],
+  [36, "Roberts 边缘"], [37, "Prewitt 边缘"], [38, "Laplacian 边缘"],
+  [39, "LoG 边缘"],
+];
+
+const vehicleItems = [
+  { id: "P1", name: "车牌识别", path: "/plate/recognize" },
+  { id: "P2", name: "车牌找车主", path: "/vehicle/search" },
+  { id: "P3", name: "身份证找车辆", path: "/owner/search" },
+  { id: "P4", name: "关系变更", path: "/relations" },
+];
+
+function mapItem(item) {
+  return { id: item[0], name: item[1], path: `/upload/${item[0]}` };
+}
+
+export default {
+  name: "Layout",
+  components: {
+    "app-header": Header,
+  },
+  data() {
+    return {
+      groups: [
+        { title: "车辆档案", items: vehicleItems },
+        { title: "风格迁移", items: styleItems.map(mapItem) },
+        { title: "基础处理", items: baseItems.map(mapItem) },
+      ],
+    };
+  },
+  computed: {
+    currentItem() {
+      if (this.$route.path === "/upload/50") {
+        return { name: "OCR 身份证识别", group: "文字识别" };
+      }
+      for (const group of this.groups) {
+        const match = group.items.find((item) => item.path === this.$route.path);
+        if (match) {
+          return { name: match.name, group: group.title };
+        }
+      }
+      return { name: "数字图像处理", group: "工作台" };
+    },
+    currentTitle() {
+      return this.currentItem.name;
+    },
+    currentGroup() {
+      return this.currentItem.group;
+    },
+  },
+};
+</script>

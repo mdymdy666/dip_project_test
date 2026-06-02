@@ -1,5 +1,6 @@
 import core.process as process
 import core.ocr_operation as ocr_operation
+import core.plate_operation as plate_operation
 
 
 def c_main(path, num, ext):
@@ -13,6 +14,12 @@ def ocr_main(path):
     # ocr_text = "ocr text"
     ocr_text = res
     return ocr_text
+
+
+def plate_main(path):
+    res = plate_operation.recognize(path)
+    print("plate res=", res)
+    return res
 
 
 if __name__ == '__main__':

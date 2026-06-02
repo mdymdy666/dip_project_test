@@ -1,42 +1,31 @@
 <template>
-    <div class="demo-image__placeholder">
-        <el-divider />
-        <el-card>
-             <div slot="header" class="clearfix">
-            <span>效果呈现</span></div>
-        <el-image :src="src0" style="width: 450px"></el-image>
-        <el-image :src="src" style="width: 450px"></el-image>
-        </el-card>
+  <section class="reference-strip">
+    <div class="reference-head">
+      <span class="stage-kicker">REFERENCE</span>
+      <h2>样例对照</h2>
     </div>
+    <div class="reference-images">
+      <figure>
+        <el-image :src="src0" class="reference-image"></el-image>
+        <figcaption>默认图像</figcaption>
+      </figure>
+      <figure>
+        <el-image :src="src" class="reference-image"></el-image>
+        <figcaption>当前效果</figcaption>
+      </figure>
+    </div>
+  </section>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-    name: "prepic",
-    props: ['id'],
-
-    data() {
-        return {
-            src0: require('../../public/img/default.jpg'),
-            src: require('../../public/img/'+this.$route.params.id+'.jpg')
-        };
-    },
-    created: function () {
-        // console.log('../../public/img/'+this.id+'.jpg');
-        // console.log(this.id) undefined
-        // console.log(this.$route.params.id);
-    },
-
-    methods: {
-
+  name: "prepic",
+  props: ["id"],
+  data() {
+    return {
+      src0: require("../../public/img/default.jpg"),
+      src: require("../../public/img/" + this.$route.params.id + ".jpg"),
+    };
   },
-  mounted() {},
 };
 </script>
-
-<style>
-
-</style>
-
