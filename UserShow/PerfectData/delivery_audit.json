@@ -1,0 +1,148 @@
+{
+  "audited_at": "2026-06-06 12:42:04",
+  "perfect_data": "E:\\OpenCVProjects\\tansyqinyrproj\\dip_project_te\\UserShow\\PerfectData",
+  "file_count": 1236,
+  "total_size_bytes": 54189531,
+  "suffix_counter": {
+    ".csv": 6,
+    ".json": 4,
+    ".md": 5,
+    ".png": 1221
+  },
+  "expected_counts": {
+    "idcard/raw_generated png": 26,
+    "idcard/final_images png": 26,
+    "idcard/processed_steps sample dirs": 26,
+    "idcard/recognition_screenshots png": 26,
+    "plate/raw_generated png": 100,
+    "plate/final_images png": 100,
+    "plate/processed_steps sample dirs": 100,
+    "plate/recognition_screenshots png": 100
+  },
+  "csv_info": {
+    "tables/idcard_ground_truth.csv": {
+      "rows": 26,
+      "columns": [
+        "sample_id",
+        "raw_image",
+        "expected",
+        "expected_name",
+        "condition"
+      ],
+      "blank_rows": 0
+    },
+    "tables/idcard_recognition_results.csv": {
+      "rows": 26,
+      "columns": [
+        "sample_id",
+        "input_path",
+        "expected",
+        "recognized",
+        "expected_name",
+        "recognized_name",
+        "condition",
+        "id_number_correct",
+        "name_correct",
+        "elapsed_ms",
+        "error_type",
+        "raw_image",
+        "final_image",
+        "recognition_screenshot",
+        "processed_dir",
+        "overall_correct"
+      ],
+      "blank_rows": 0
+    },
+    "tables/idcard_success_cases.csv": {
+      "rows": 26,
+      "columns": [
+        "sample_id",
+        "input_path",
+        "expected",
+        "recognized",
+        "expected_name",
+        "recognized_name",
+        "condition",
+        "id_number_correct",
+        "name_correct",
+        "elapsed_ms",
+        "error_type",
+        "raw_image",
+        "final_image",
+        "recognition_screenshot",
+        "processed_dir",
+        "overall_correct"
+      ],
+      "blank_rows": 0
+    },
+    "tables/plate_ground_truth.csv": {
+      "rows": 100,
+      "columns": [
+        "sample_id",
+        "raw_image",
+        "expected_plate",
+        "province",
+        "city_letter",
+        "tail",
+        "condition",
+        "generation_params"
+      ],
+      "blank_rows": 0
+    },
+    "tables/plate_recognition_results.csv": {
+      "rows": 100,
+      "columns": [
+        "sample_id",
+        "raw_image",
+        "final_image",
+        "recognition_screenshot",
+        "processed_dir",
+        "expected_plate",
+        "recognized_plate",
+        "province",
+        "city_letter",
+        "tail",
+        "condition",
+        "detected",
+        "format_valid",
+        "province_correct",
+        "overall_correct",
+        "avg_confidence",
+        "bbox",
+        "elapsed_ms",
+        "error_type",
+        "generation_params"
+      ],
+      "blank_rows": 0
+    },
+    "tables/plate_success_cases.csv": {
+      "rows": 100,
+      "columns": [
+        "sample_id",
+        "raw_image",
+        "final_image",
+        "recognition_screenshot",
+        "processed_dir",
+        "expected_plate",
+        "recognized_plate",
+        "province",
+        "city_letter",
+        "tail",
+        "condition",
+        "detected",
+        "format_valid",
+        "province_correct",
+        "overall_correct",
+        "avg_confidence",
+        "bbox",
+        "elapsed_ms",
+        "error_type",
+        "generation_params"
+      ],
+      "blank_rows": 0
+    }
+  },
+  "image_count": 1221,
+  "issues": [],
+  "warnings": []
+}

@@ -370,3 +370,39 @@ vehicle_db.database_summary()
 - 浏览器实测 `/owner/search`，输入 `44030119840217411X` 能查询到关联车辆
 - 浏览器实测 `/relations`，确认关系动态变更 UI 可提交并刷新列表
 - 测试后已执行 `vehicle_db.reset_database()`，数据库恢复为种子状态：12 个车主、14 辆车、20 条历史关系、14 条当前关系
+
+### 2026-06-06 PerfectData 身份证与车牌中间交付包
+
+主要任务：在前序身份证水印修复和车牌识别修复成果基础上，整理可交给协作者查看的好结果截图、数据集、处理过程和分析说明，并进行上传前审查。
+
+新增交付内容：
+
+- `UserShow/PerfectData/README.md`
+- `UserShow/PerfectData/dataset_summary.md`
+- `UserShow/PerfectData/recognition_analysis.md`
+- `UserShow/PerfectData/self_check.md`
+- `UserShow/PerfectData/delivery_audit.md`
+- `UserShow/PerfectData/idcard/`
+- `UserShow/PerfectData/plate/`
+- `UserShow/PerfectData/tables/`
+- `UserShow/PerfectData/charts/`
+- `UserShow/PerfectData/selected_showcase/`
+- `tools/build_combined_perfect_data.py`
+- `tools/perfect_plate_dataset.py`
+- `tools/showcase_repair_experiment.py`
+- `tools/audit_perfect_data.py`
+
+审查结论：
+
+- 身份证好结果样本 26 组，均包含原始生成图、最终图、处理步骤、识别截图和 CSV 记录
+- 车牌好结果样本 100 组，均包含原始生成图、最终图、定位/裁剪/预处理步骤、识别截图和 CSV 记录
+- `UserShow/PerfectData` 共审查 1236 个文件，总大小约 51.68 MB；PNG 图片 1221 张均可打开
+- 6 个 CSV 表格可读取，无空白无效行
+- 未发现 `.ppt`、`.pptx`、临时文件或疑似 token/password/secret/cookie 等敏感配置字段
+- PerfectData 只收录当前阶段稳定好结果，异常样例不混入该目录
+
+注意：
+
+- PPT 文件按用户要求不纳入本次提交
+- 车牌 100/100 结论限定于标准虚拟蓝牌数据集，不代表覆盖所有真实复杂路拍场景
+- 身份证样本均为虚拟测试数据，不包含真实个人隐私信息

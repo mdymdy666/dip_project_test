@@ -1,0 +1,9 @@
+{
+  "idcard_success_total": 26,
+  "idcard_internal_failure_total": 4,
+  "plate_success_total": 100,
+  "plate_tested_total": 100,
+  "plate_detection_success": 100,
+  "plate_province_success": 100,
+  "perfect_data": "E:\\OpenCVProjects\\tansyqinyrproj\\UserShow\\PerfectData"
+}
