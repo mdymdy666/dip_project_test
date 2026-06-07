@@ -504,3 +504,18 @@ vehicle_db.database_summary()
 - 完成事项：新增并运行 `tools/task1_id_recognition_dataset.py`，完成 task1 身份证数据补充、OCR 批量测试、成功/失败截图、统计图、CSV/JSON 和总结文档生成。输出目录为 `UserShow/task1/`，新增处理图目录为 `datas/task1_processed/`。
 - 当前发现：本轮保留 `datas/` 6 张可单独测试身份证图，并基于这些图像处理生成 46 张补充测试图，最终测试样本 52 张；不使用外部真实身份证，也不使用虚拟身份证生成器，AI 生成身份证数量为 0。实际 OCR 结果为全量 30 成功、22 失败，全量可用身份证号检出率 57.69%；展示样例集为 30 成功、1 失败，展示成功率 96.77%。`UserShow/task1/` 当前包含 202 个文件、143 张 PNG，图片签名检查正常，`task1.md` 无占位内容。
 - 下一步：将 `datas/task1_processed/`、`UserShow/task1/`、`tools/task1_id_recognition_dataset.py` 和 `Codex.md` 同步到 `dip_project_te` 仓库，只暂存本轮相关文件并推送 GitHub。
+
+## 2026-06-07 19:35
+- 完成事项：完成 task1 GitHub 上传。提交信息为 `add task1 id recognition dataset and analysis`，commit hash 为 `4ace19d5eb7fcce567e4d4e939b95fa97aa2aa86`，已推送到 GitHub 远程 `https://github.com/mdymdy666/dip_project_test.git` 的 `main` 分支。
+- 当前发现：本轮提交只包含 `UserShow/task1/`、`datas/task1_processed/`、`tools/task1_id_recognition_dataset.py` 和仓库日志 `codex.md`。仓库中既有未提交的 `app.py`、`core/vehicle_db.py`、数据库和 tmp 图片改动仍保留未提交，未回滚、未覆盖。
+- 下一步：向用户汇报 datas 原有数量、新增数量、最终测试总量、样例统计、task1 文档路径、GitHub 上传结果和遗留问题。
+
+## 2026-06-07 20:15
+- 完成事项：开始根据用户给出的“定量实验设计/消融实验”截图整理身份证识别改进证明材料。任务意图理解为：使用 A-E 多种处理策略进行消融对比，并从成功与少量失败案例中提取证据，论证每一步改进对定位、OCR 和鲁棒性有价值。
+- 当前发现：可复用 `UserShow/task1/` 中 52 张身份证测试图、成功/失败截图和结果表；用户图中的实验组为 A 直接 OCR、B 灰度+二值、C B+形态学、D C+轮廓筛选、E D+ROI+校正+OCR。后续会将结果整理到 `UserShow/task1_ablation/`，避免覆盖已上传的 task1。
+- 下一步：编写并运行消融实验脚本，输出每组逐样本记录、汇总表、趋势图、代表成功/失败案例和总结文档。
+
+## 2026-06-07 20:21
+- 完成事项：新增并运行 `tools/task1_ablation_experiment.py`，完成 A-E 五组身份证识别消融实验。输出目录为 `UserShow/task1_ablation/`，包含逐样本记录、汇总表、量化表截图、趋势图、成功案例、少量失败案例、精选上传材料和 README。
+- 当前发现：消融实验基于 `UserShow/task1/` 的 52 张实际测试图，共生成 260 条检测记录。指标为 A 直接 OCR：定位 34/52、OCR 字符准确率 61.8%；B 灰度+二值：定位 38/52、OCR 50.5%；C B+形态学：定位 52/52、OCR 98.2%；D C+轮廓筛选：定位 52/52、OCR 98.2%；E 完整流程：定位 30/52、OCR 57.7%。C/D 说明号码区域形态学与候选筛选对定位最有效；E 为项目完整流程，包含更严格字段与有效性校验，在低质图上会保守失败，不能伪装成 100% 成功。
+- 下一步：同步 `UserShow/task1_ablation/` 和 `tools/task1_ablation_experiment.py` 到 `dip_project_te`，只暂存本轮消融实验相关文件和日志后提交推送。

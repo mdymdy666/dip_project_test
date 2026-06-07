@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "E:\OpenCVProjects\tansyqinyrproj\tools\task1_ablation_experiment.py", line 260, in run_group
+    res = ocr_main(str(sample.image_path))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\main.py", line 12, in ocr_main
+    res = ocr_operation.detect(path)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\ocr_operation.py", line 51, in detect
+    text_dict = func.get_chinese_char(gray_char_area_img)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\functions.py", line 424, in get_chinese_char
+    raise Exception('获取各行起始坐标失败！')
+Exception: 获取各行起始坐标失败！
