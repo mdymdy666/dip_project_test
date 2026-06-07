@@ -1,0 +1,26 @@
+{
+  "time": "2026-06-07 18:44",
+  "totalFiles": 191,
+  "totalSizeBytes": 62647668,
+  "pngCount": 173,
+  "csvInfo": [
+    {
+      "file": "tables/file_manifest.csv",
+      "lines": 191,
+      "header": "relative_path,size_bytes,sha256"
+    },
+    {
+      "file": "tables/idcard_robustness_detail.csv",
+      "lines": 23,
+      "header": "sample_id,file_name,source_type,input_path,condition,perturbation_type,perturbation_params,field,expected,recognized,name_expected,name_recognized,localization_success,ocr_success,name_success,overall_success,error_type,failure_reason,candidate_count,elapsed_ms,verification_screenshot,note"
+    },
+    {
+      "file": "tables/idcard_robustness_summary_template.csv",
+      "lines": 16,
+      "header": "测试条件,样本数,定位成功率,OCR准确率,备注"
+    }
+  ],
+  "pptSlideCount": 27,
+  "issues": [],
+  "warnings": []
+}
