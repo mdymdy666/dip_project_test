@@ -519,3 +519,18 @@ vehicle_db.database_summary()
 - 完成事项：新增并运行 `tools/task1_ablation_experiment.py`，完成 A-E 五组身份证识别消融实验。输出目录为 `UserShow/task1_ablation/`，包含逐样本记录、汇总表、量化表截图、趋势图、成功案例、少量失败案例、精选上传材料和 README。
 - 当前发现：消融实验基于 `UserShow/task1/` 的 52 张实际测试图，共生成 260 条检测记录。指标为 A 直接 OCR：定位 34/52、OCR 字符准确率 61.8%；B 灰度+二值：定位 38/52、OCR 50.5%；C B+形态学：定位 52/52、OCR 98.2%；D C+轮廓筛选：定位 52/52、OCR 98.2%；E 完整流程：定位 30/52、OCR 57.7%。C/D 说明号码区域形态学与候选筛选对定位最有效；E 为项目完整流程，包含更严格字段与有效性校验，在低质图上会保守失败，不能伪装成 100% 成功。
 - 下一步：同步 `UserShow/task1_ablation/` 和 `tools/task1_ablation_experiment.py` 到 `dip_project_te`，只暂存本轮消融实验相关文件和日志后提交推送。
+
+## 2026-06-07 20:24
+- 完成事项：完成 task1 消融实验材料 GitHub 上传。提交信息为 `add task1 ablation experiment analysis`，commit hash 为 `37b7d2708f04211d96e0306779c3b0fbafb8caf7`，已推送到 GitHub 远程 `https://github.com/mdymdy666/dip_project_test.git` 的 `main` 分支。
+- 当前发现：本轮提交只包含 `UserShow/task1_ablation/`、`tools/task1_ablation_experiment.py` 和仓库日志 `codex.md`。仓库中既有未提交的 `app.py`、`core/vehicle_db.py`、数据库和 tmp 图片改动仍保留未提交，未回滚、未覆盖。
+- 下一步：向用户汇报消融实验交付目录、关键表格/图表、成功/失败案例、GitHub commit 和主要结论。
+
+## 2026-06-07 20:37
+- 完成事项：根据用户反馈重新审视消融实验设计，确认上一版 E 组下降的原因是评估口径不公平：E 使用项目完整身份证流程，会额外进行姓名/民族/地址等字段联动和严格异常抛出；A-D 只评估身份证号码，因此 E 的失败被放大。
+- 当前发现：用户要求重新做，并要求每一步都有数据和结果展示。新版将 E 改为公平口径的“D + 号码 ROI 透视校正 + 字符白名单 OCR + 格式校验”，仍只评估身份证号码字段；同时补充每组 step 结果图、逐样本证据、成功案例和少量失败案例。
+- 下一步：修改 `tools/task1_ablation_experiment.py`，重新运行实验并覆盖 `UserShow/task1_ablation/`，再审查、同步、提交和推送。
+
+## 2026-06-07 21:01
+- 完成事项：已重做身份证号码识别 A-E 消融实验，修正 E 组评价口径，并重新生成 `UserShow/task1_ablation/` 下的逐样本记录、汇总表、量化设计表、指标趋势图、每组结果卡、成功案例和少量失败案例。
+- 当前发现：新版 E 组不再调用完整身份证/车主联动流程，而是在与 A-D 相同的身份证号码评价口径下执行“D + ROI + 校正 + 白名单 OCR”。52 张样本结果为 A 定位 65.4%/OCR 61.8%/完全正确 30 张，B 定位 73.1%/OCR 50.5%/完全正确 19 张，C 定位 100.0%/OCR 98.2%/完全正确 42 张，D 定位 100.0%/OCR 98.2%/完全正确 42 张，E 定位 100.0%/OCR 99.4%/完全正确 51 张。E 仍保留 1 个低质图片失败案例用于边界分析，没有伪造为 100%。
+- 下一步：审查生成的图表与截图后，同步 `UserShow/task1_ablation/`、`tools/task1_ablation_experiment.py` 和日志到 `dip_project_te`，只暂存本轮相关文件并推送 GitHub。

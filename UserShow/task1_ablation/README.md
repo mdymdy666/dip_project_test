@@ -19,15 +19,17 @@
 | B | 灰度 + 二值 | 降低颜色干扰，但字符断裂/噪声仍明显 |
 | C | B + 形态学 | 尝试连接字符区域、消除小噪点 |
 | D | C + 轮廓筛选 | 使用长宽比和面积筛选候选身份证号区域 |
-| E 完整流程 | D + ROI + 校正 + OCR | 使用项目完整身份证识别流程 |
+| E 完整流程 | D + ROI + 校正 + 白名单 OCR + 格式校验 | 在公平口径下只评估身份证号码字段 |
 
 ## 汇总结果
 
 详见：
 
 - `tables/ablation_summary.csv`
+- `tables/ablation_detection_records.csv`
 - `charts/ablation_quantitative_design_table.png`
 - `charts/ablation_metric_trend.png`
+- `step_result_cards/`
 
 ## 成功案例
 
@@ -52,4 +54,4 @@ selected_failure_cases/
 
 ## 结论
 
-消融实验不是为了宣称所有样本 100% 成功，而是为了证明：从直接 OCR 到完整 ROI + 校正 + OCR，处理链路逐步减少背景干扰、噪声断裂和误检区域问题。最终展示材料优先选取成功案例，同时保留少量失败案例作为边界说明。
+消融实验不是为了宣称所有样本 100% 成功，而是为了证明：从直接 OCR 到 ROI 校正、字符白名单和格式校验，处理链路逐步减少背景干扰、噪声断裂和误检区域问题。最终展示材料优先选取成功案例，同时保留少量失败案例作为边界说明。

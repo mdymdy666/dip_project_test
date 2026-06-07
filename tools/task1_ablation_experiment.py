@@ -34,6 +34,7 @@ SCREENSHOTS = OUT / "screenshots"
 SUCCESS_DIR = OUT / "selected_success_cases"
 FAIL_DIR = OUT / "selected_failure_cases"
 STEPS_DIR = OUT / "step_outputs"
+STEP_CARDS = OUT / "step_result_cards"
 
 EXPECTED_ID = "44030119840217411X"
 
@@ -42,7 +43,7 @@ GROUPS = [
     ("B", "B", "灰度 + 二值", "断裂/噪声"),
     ("C", "C", "B + 形态学", "区域粘连"),
     ("D", "D", "C + 轮廓筛选", "误检区域"),
-    ("E", "E 完整流程", "D + ROI + 校正 + OCR", "低质图片"),
+    ("E", "E 完整流程", "D + ROI + 校正 + 白名单 OCR", "低质图片"),
 ]
 
 
@@ -76,7 +77,7 @@ FONT_SMALL = font(15)
 def ensure_clean() -> None:
     if OUT.exists():
         shutil.rmtree(OUT)
-    for d in [TABLES, CHARTS, SCREENSHOTS, SUCCESS_DIR, FAIL_DIR, STEPS_DIR]:
+    for d in [TABLES, CHARTS, SCREENSHOTS, SUCCESS_DIR, FAIL_DIR, STEPS_DIR, STEP_CARDS]:
         d.mkdir(parents=True, exist_ok=True)
 
 
@@ -144,10 +145,18 @@ def choose_candidate(texts: list[str]) -> str:
     if not cleaned:
         return ""
     for text in cleaned:
+        if len(text) == 18 and func.is_identi_number(text):
+            return text
+    for text in cleaned:
         if len(text) == 18:
             return text
     cleaned.sort(key=len, reverse=True)
     return cleaned[0][:18]
+
+
+def whitelist_ocr(img: np.ndarray, psm: int = 7) -> str:
+    config = f"--psm {psm} -c tessedit_char_whitelist=0123456789Xx"
+    return extract_id(ocr_image(img, config))
 
 
 def threshold_and_morph(gray: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
@@ -178,6 +187,27 @@ def crop_rect(gray_or_binary: np.ndarray, rect) -> np.ndarray:
     pts1 = np.float32(box)
     m = cv2.getPerspectiveTransform(pts1, pts2)
     return cv2.warpPerspective(gray_or_binary, m, (int(width), int(height)))
+
+
+def normalized_roi_variants(gray: np.ndarray, binary: np.ndarray, rect, out_dir: Path) -> list[np.ndarray]:
+    roi_gray = crop_rect(gray, rect)
+    roi_binary = crop_rect(binary, rect)
+    if roi_gray.size == 0:
+        return []
+    target_h = 54
+    scale = target_h / max(1, roi_gray.shape[0])
+    target_w = max(180, min(640, int(roi_gray.shape[1] * scale)))
+    gray_resized = cv2.resize(roi_gray, (target_w, target_h), interpolation=cv2.INTER_CUBIC)
+    binary_resized = cv2.resize(roi_binary, (target_w, target_h), interpolation=cv2.INTER_NEAREST)
+    _, otsu = cv2.threshold(gray_resized, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 1))
+    cleaned = cv2.morphologyEx(otsu, cv2.MORPH_OPEN, kernel, iterations=1)
+    padded = cv2.copyMakeBorder(cleaned, 10, 10, 16, 16, cv2.BORDER_CONSTANT, value=255)
+    write_img(out_dir / "roi_gray.png", gray_resized)
+    write_img(out_dir / "roi_binary.png", binary_resized)
+    write_img(out_dir / "roi_otsu.png", otsu)
+    write_img(out_dir / "roi_cleaned_padded.png", padded)
+    return [padded, otsu, binary_resized, gray_resized]
 
 
 def ocr_image(img: np.ndarray, config: str = "--psm 6") -> str:
@@ -255,12 +285,30 @@ def run_group(sample: Sample, group_id: str) -> dict:
             recognized = choose_candidate(texts)
             evidence = rel(step_dir / "filtered_regions.png")
         else:
-            buf = io.StringIO()
-            with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
-                res = ocr_main(str(sample.image_path))
-            recognized = normalize_id((res or {}).get("CARD_NUM", ""))
-            localization_success = bool(recognized)
-            evidence = rel(sample.image_path)
+            binary, morphology = threshold_and_morph(gray)
+            regions = func.find_id_regions(morphology)
+            filtered = []
+            for rect in regions:
+                w, h = rect[1]
+                if min(w, h) <= 1:
+                    continue
+                ratio = max(w, h) / min(w, h)
+                area = w * h
+                if ratio >= 5 and area >= 1000:
+                    filtered.append(rect)
+            filtered.sort(key=lambda r: r[1][0] * r[1][1], reverse=True)
+            candidate_count = len(filtered)
+            localization_success = candidate_count > 0
+            draw_regions(img, filtered[:3], step_dir / "roi_filtered_regions.png")
+            texts = []
+            for idx, rect in enumerate(filtered[:3], 1):
+                roi_dir = step_dir / f"roi_{idx:02d}"
+                roi_dir.mkdir(parents=True, exist_ok=True)
+                for variant in normalized_roi_variants(gray, binary, rect, roi_dir):
+                    texts.append(whitelist_ocr(variant, 7))
+                    texts.append(whitelist_ocr(variant, 8))
+            recognized = choose_candidate(texts)
+            evidence = rel(step_dir / "roi_filtered_regions.png")
     except Exception as exc:
         failure_type = f"{type(exc).__name__}: {exc}"
         (step_dir / "error.txt").write_text(traceback.format_exc(), encoding="utf-8")
@@ -411,6 +459,52 @@ def case_card(sample: Sample, rows: list[dict], out_path: Path, title: str) -> N
     img.save(out_path)
 
 
+def group_result_card(group_summary: dict, case_rows: list[dict], sample_map: dict[str, Sample], out_path: Path) -> None:
+    w, h = 1400, 760
+    img = Image.new("RGB", (w, h), (245, 248, 250))
+    draw = ImageDraw.Draw(img)
+    draw.text((36, 28), f"{group_summary['实验组']}：{group_summary['处理流程']}", font=FONT_TITLE, fill=(20, 32, 50))
+    metrics = [
+        f"样本数：{group_summary['样本数']}",
+        f"定位成功率：{group_summary['定位成功率']}",
+        f"OCR字符准确率：{group_summary['OCR字符准确率']}",
+        f"完全正确数：{group_summary['完全正确数']}",
+        f"平均耗时：{group_summary['平均耗时']}",
+        f"主要失败类型：{group_summary['失败类型']}",
+    ]
+    y = 94
+    for item in metrics:
+        draw.text((46, y), item, font=FONT_BODY, fill=(20, 32, 50))
+        y += 34
+    x0, y0 = 48, 330
+    draw.text((x0, y0 - 42), "代表样例输出", font=FONT_H2, fill=(7, 130, 63))
+    headers = ["样本", "类型", "识别号码", "字符准确率", "结论"]
+    widths = [110, 160, 260, 130, 230]
+    draw.rectangle((x0, y0, x0 + sum(widths), y0 + 38), fill=(0, 128, 64))
+    x = x0
+    for head, cw in zip(headers, widths):
+        draw.text((x + 10, y0 + 9), head, font=FONT_SMALL, fill="white")
+        x += cw
+    y = y0 + 38
+    for row in case_rows[:6]:
+        sample = sample_map[row["sample_id"]]
+        vals = [
+            row["sample_id"],
+            sample.issue_type,
+            row["recognized_id"] or "-",
+            f"{float(row['ocr_char_accuracy']) * 100:.1f}%",
+            "正确" if row["exact_match"] == "True" else row["failure_type"][:14],
+        ]
+        x = x0
+        draw.rectangle((x0, y, x0 + sum(widths), y + 44), outline=(205, 215, 225))
+        for val, cw in zip(vals, widths):
+            draw.text((x + 10, y + 12), str(val), font=FONT_SMALL, fill=(20, 32, 50))
+            x += cw
+        y += 44
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    img.save(out_path)
+
+
 def main() -> None:
     ensure_clean()
     samples = load_samples()
@@ -452,10 +546,15 @@ def main() -> None:
     write_csv(TABLES / "ablation_summary.csv", summary_rows, list(summary_rows[0].keys()))
     draw_table(summary_rows, CHARTS / "ablation_quantitative_design_table.png")
     draw_trend(summary_rows, CHARTS / "ablation_metric_trend.png")
+    sample_map = {s.sample_id: s for s in samples}
+    for group_id, *_ in GROUPS:
+        group_summary = [r for r in summary_rows if str(r["实验组"]).startswith(group_id)][0]
+        group_records = [r for r in records if r["group_id"] == group_id]
+        ranked = sorted(group_records, key=lambda r: (r["exact_match"] != "True", -float(r["ocr_char_accuracy"])))
+        group_result_card(group_summary, ranked, sample_map, STEP_CARDS / f"group_{group_id}_result_card.png")
 
     # Pick cases where full pipeline succeeds and earlier groups are worse, plus one boundary failure.
     by_sample: dict[str, list[dict]] = {}
-    sample_map = {s.sample_id: s for s in samples}
     for r in records:
         by_sample.setdefault(r["sample_id"], []).append(r)
     success_candidates = []
@@ -504,15 +603,17 @@ def main() -> None:
 | B | 灰度 + 二值 | 降低颜色干扰，但字符断裂/噪声仍明显 |
 | C | B + 形态学 | 尝试连接字符区域、消除小噪点 |
 | D | C + 轮廓筛选 | 使用长宽比和面积筛选候选身份证号区域 |
-| E 完整流程 | D + ROI + 校正 + OCR | 使用项目完整身份证识别流程 |
+| E 完整流程 | D + ROI + 校正 + 白名单 OCR + 格式校验 | 在公平口径下只评估身份证号码字段 |
 
 ## 汇总结果
 
 详见：
 
 - `tables/ablation_summary.csv`
+- `tables/ablation_detection_records.csv`
 - `charts/ablation_quantitative_design_table.png`
 - `charts/ablation_metric_trend.png`
+- `step_result_cards/`
 
 ## 成功案例
 
@@ -537,7 +638,7 @@ selected_failure_cases/
 
 ## 结论
 
-消融实验不是为了宣称所有样本 100% 成功，而是为了证明：从直接 OCR 到完整 ROI + 校正 + OCR，处理链路逐步减少背景干扰、噪声断裂和误检区域问题。最终展示材料优先选取成功案例，同时保留少量失败案例作为边界说明。
+消融实验不是为了宣称所有样本 100% 成功，而是为了证明：从直接 OCR 到 ROI 校正、字符白名单和格式校验，处理链路逐步减少背景干扰、噪声断裂和误检区域问题。最终展示材料优先选取成功案例，同时保留少量失败案例作为边界说明。
 """
     (OUT / "README.md").write_text(md, encoding="utf-8")
     print(json.dumps({"samples": len(samples), "records": len(records), "summary": summary_rows}, ensure_ascii=False, indent=2))
