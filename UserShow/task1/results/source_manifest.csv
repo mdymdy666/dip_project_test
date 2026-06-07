@@ -1,0 +1,53 @@
+﻿sample_id,file_name,source,source_file,issue_type,generation_method,path
+ORG001,normal.png,原有,datas/normal.png,清晰正面,datas 原有图片，未修改,datas/normal.png
+ORG002,dark.png,原有,datas/dark.png,光照偏暗,datas 原有图片，未修改,datas/dark.png
+ORG003,overexposed.png,原有,datas/overexposed.png,光照过亮,datas 原有图片，未修改,datas/overexposed.png
+ORG004,noise.png,原有,datas/noise.png,加噪声,datas 原有图片，未修改,datas/noise.png
+ORG005,tilt_10deg.png,原有,datas/tilt_10deg.png,倾斜旋转,datas 原有图片，未修改,datas/tilt_10deg.png
+ORG006,low_resolution.png,原有,datas/low_resolution.png,低分辨率,datas 原有图片，未修改,datas/low_resolution.png
+ADD001,task1_001_clear_copy_normal.png,新增,datas/normal.png,清晰正面,基于 normal.png 处理：原图复制，作为稳定识别参考,datas/task1_processed/task1_001_clear_copy_normal.png
+ADD002,task1_002_bright_plus_dark.png,新增,datas/dark.png,光照过亮,基于 dark.png 处理：亮度/对比度轻微提高,datas/task1_processed/task1_002_bright_plus_dark.png
+ADD003,task1_003_dark_plus_overexposed.png,新增,datas/overexposed.png,光照偏暗,基于 overexposed.png 处理：亮度降低，模拟暗光,datas/task1_processed/task1_003_dark_plus_overexposed.png
+ADD004,task1_004_contrast_tilt_10deg.png,新增,datas/tilt_10deg.png,对比度变化,基于 tilt_10deg.png 处理：对比度增强,datas/task1_processed/task1_004_contrast_tilt_10deg.png
+ADD005,task1_005_blur_light_normal.png,新增,datas/normal.png,模糊,基于 normal.png 处理：轻微高斯模糊,datas/task1_processed/task1_005_blur_light_normal.png
+ADD006,task1_006_rotate_small_dark.png,新增,datas/dark.png,倾斜旋转,基于 dark.png 处理：小角度旋转,datas/task1_processed/task1_006_rotate_small_dark.png
+ADD007,task1_007_scale_small_overexposed.png,新增,datas/overexposed.png,缩放变化,基于 overexposed.png 处理：缩放后置于背景画布,datas/task1_processed/task1_007_scale_small_overexposed.png
+ADD008,task1_008_low_res_light_tilt_10deg.png,新增,datas/tilt_10deg.png,低分辨率,基于 tilt_10deg.png 处理：降采样后再放大,datas/task1_processed/task1_008_low_res_light_tilt_10deg.png
+ADD009,task1_009_crop_light_normal.png,新增,datas/normal.png,局部裁剪,基于 normal.png 处理：轻微裁剪边缘,datas/task1_processed/task1_009_crop_light_normal.png
+ADD010,task1_010_occlusion_corner_dark.png,新增,datas/dark.png,局部遮挡,基于 dark.png 处理：遮挡非关键或弱关键区域,datas/task1_processed/task1_010_occlusion_corner_dark.png
+ADD011,task1_011_background_overexposed.png,新增,datas/overexposed.png,背景复杂,基于 overexposed.png 处理：添加背景边框和纹理,datas/task1_processed/task1_011_background_overexposed.png
+ADD012,task1_012_clear_copy_tilt_10deg.png,新增,datas/tilt_10deg.png,清晰正面,基于 tilt_10deg.png 处理：原图复制，作为稳定识别参考,datas/task1_processed/task1_012_clear_copy_tilt_10deg.png
+ADD013,task1_013_bright_plus_normal.png,新增,datas/normal.png,光照过亮,基于 normal.png 处理：亮度/对比度轻微提高,datas/task1_processed/task1_013_bright_plus_normal.png
+ADD014,task1_014_dark_plus_dark.png,新增,datas/dark.png,光照偏暗,基于 dark.png 处理：亮度降低，模拟暗光,datas/task1_processed/task1_014_dark_plus_dark.png
+ADD015,task1_015_contrast_overexposed.png,新增,datas/overexposed.png,对比度变化,基于 overexposed.png 处理：对比度增强,datas/task1_processed/task1_015_contrast_overexposed.png
+ADD016,task1_016_blur_light_tilt_10deg.png,新增,datas/tilt_10deg.png,模糊,基于 tilt_10deg.png 处理：轻微高斯模糊,datas/task1_processed/task1_016_blur_light_tilt_10deg.png
+ADD017,task1_017_rotate_small_normal.png,新增,datas/normal.png,倾斜旋转,基于 normal.png 处理：小角度旋转,datas/task1_processed/task1_017_rotate_small_normal.png
+ADD018,task1_018_scale_small_dark.png,新增,datas/dark.png,缩放变化,基于 dark.png 处理：缩放后置于背景画布,datas/task1_processed/task1_018_scale_small_dark.png
+ADD019,task1_019_low_res_light_overexposed.png,新增,datas/overexposed.png,低分辨率,基于 overexposed.png 处理：降采样后再放大,datas/task1_processed/task1_019_low_res_light_overexposed.png
+ADD020,task1_020_crop_light_tilt_10deg.png,新增,datas/tilt_10deg.png,局部裁剪,基于 tilt_10deg.png 处理：轻微裁剪边缘,datas/task1_processed/task1_020_crop_light_tilt_10deg.png
+ADD021,task1_021_occlusion_corner_normal.png,新增,datas/normal.png,局部遮挡,基于 normal.png 处理：遮挡非关键或弱关键区域,datas/task1_processed/task1_021_occlusion_corner_normal.png
+ADD022,task1_022_background_dark.png,新增,datas/dark.png,背景复杂,基于 dark.png 处理：添加背景边框和纹理,datas/task1_processed/task1_022_background_dark.png
+ADD023,task1_023_clear_copy_overexposed.png,新增,datas/overexposed.png,清晰正面,基于 overexposed.png 处理：原图复制，作为稳定识别参考,datas/task1_processed/task1_023_clear_copy_overexposed.png
+ADD024,task1_024_bright_plus_tilt_10deg.png,新增,datas/tilt_10deg.png,光照过亮,基于 tilt_10deg.png 处理：亮度/对比度轻微提高,datas/task1_processed/task1_024_bright_plus_tilt_10deg.png
+ADD025,task1_025_dark_plus_normal.png,新增,datas/normal.png,光照偏暗,基于 normal.png 处理：亮度降低，模拟暗光,datas/task1_processed/task1_025_dark_plus_normal.png
+ADD026,task1_026_contrast_dark.png,新增,datas/dark.png,对比度变化,基于 dark.png 处理：对比度增强,datas/task1_processed/task1_026_contrast_dark.png
+ADD027,task1_027_blur_light_overexposed.png,新增,datas/overexposed.png,模糊,基于 overexposed.png 处理：轻微高斯模糊,datas/task1_processed/task1_027_blur_light_overexposed.png
+ADD028,task1_028_rotate_small_tilt_10deg.png,新增,datas/tilt_10deg.png,倾斜旋转,基于 tilt_10deg.png 处理：小角度旋转,datas/task1_processed/task1_028_rotate_small_tilt_10deg.png
+ADD029,task1_029_scale_small_normal.png,新增,datas/normal.png,缩放变化,基于 normal.png 处理：缩放后置于背景画布,datas/task1_processed/task1_029_scale_small_normal.png
+ADD030,task1_030_low_res_light_dark.png,新增,datas/dark.png,低分辨率,基于 dark.png 处理：降采样后再放大,datas/task1_processed/task1_030_low_res_light_dark.png
+ADD031,task1_031_crop_light_overexposed.png,新增,datas/overexposed.png,局部裁剪,基于 overexposed.png 处理：轻微裁剪边缘,datas/task1_processed/task1_031_crop_light_overexposed.png
+ADD032,task1_032_occlusion_corner_tilt_10deg.png,新增,datas/tilt_10deg.png,局部遮挡,基于 tilt_10deg.png 处理：遮挡非关键或弱关键区域,datas/task1_processed/task1_032_occlusion_corner_tilt_10deg.png
+ADD033,task1_033_background_normal.png,新增,datas/normal.png,背景复杂,基于 normal.png 处理：添加背景边框和纹理,datas/task1_processed/task1_033_background_normal.png
+ADD034,task1_034_clear_copy_dark.png,新增,datas/dark.png,清晰正面,基于 dark.png 处理：原图复制，作为稳定识别参考,datas/task1_processed/task1_034_clear_copy_dark.png
+ADD035,task1_035_bright_plus_overexposed.png,新增,datas/overexposed.png,光照过亮,基于 overexposed.png 处理：亮度/对比度轻微提高,datas/task1_processed/task1_035_bright_plus_overexposed.png
+ADD036,task1_036_dark_plus_tilt_10deg.png,新增,datas/tilt_10deg.png,光照偏暗,基于 tilt_10deg.png 处理：亮度降低，模拟暗光,datas/task1_processed/task1_036_dark_plus_tilt_10deg.png
+ADD037,task1_037_contrast_normal.png,新增,datas/normal.png,对比度变化,基于 normal.png 处理：对比度增强,datas/task1_processed/task1_037_contrast_normal.png
+ADD038,task1_038_blur_light_dark.png,新增,datas/dark.png,模糊,基于 dark.png 处理：轻微高斯模糊,datas/task1_processed/task1_038_blur_light_dark.png
+ADD039,task1_039_rotate_small_overexposed.png,新增,datas/overexposed.png,倾斜旋转,基于 overexposed.png 处理：小角度旋转,datas/task1_processed/task1_039_rotate_small_overexposed.png
+ADD040,task1_040_scale_small_tilt_10deg.png,新增,datas/tilt_10deg.png,缩放变化,基于 tilt_10deg.png 处理：缩放后置于背景画布,datas/task1_processed/task1_040_scale_small_tilt_10deg.png
+ADD041,task1_041_low_res_light_normal.png,新增,datas/normal.png,低分辨率,基于 normal.png 处理：降采样后再放大,datas/task1_processed/task1_041_low_res_light_normal.png
+ADD042,task1_042_crop_light_dark.png,新增,datas/dark.png,局部裁剪,基于 dark.png 处理：轻微裁剪边缘,datas/task1_processed/task1_042_crop_light_dark.png
+ADD043,task1_043_occlusion_corner_overexposed.png,新增,datas/overexposed.png,局部遮挡,基于 overexposed.png 处理：遮挡非关键或弱关键区域,datas/task1_processed/task1_043_occlusion_corner_overexposed.png
+ADD044,task1_044_background_tilt_10deg.png,新增,datas/tilt_10deg.png,背景复杂,基于 tilt_10deg.png 处理：添加背景边框和纹理,datas/task1_processed/task1_044_background_tilt_10deg.png
+ADD045,task1_045_clear_copy_normal.png,新增,datas/normal.png,清晰正面,基于 normal.png 处理：原图复制，作为稳定识别参考,datas/task1_processed/task1_045_clear_copy_normal.png
+ADD046,task1_046_bright_plus_dark.png,新增,datas/dark.png,光照过亮,基于 dark.png 处理：亮度/对比度轻微提高,datas/task1_processed/task1_046_bright_plus_dark.png

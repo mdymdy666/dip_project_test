@@ -1,0 +1,69 @@
+{
+  "datas_original_image_count": 6,
+  "datas_overview_image_excluded": "robustness_grid.png",
+  "added_processed_image_count": 46,
+  "final_test_image_count": 52,
+  "success_count": 30,
+  "failure_count": 22,
+  "all_test_success_rate": 0.5769,
+  "showcase_success_count": 30,
+  "showcase_failure_count": 1,
+  "showcase_success_rate": 0.9677,
+  "by_source": {
+    "原有": 6,
+    "新增": 46
+  },
+  "by_issue_type": {
+    "清晰正面": {
+      "total": 6,
+      "success": 5
+    },
+    "光照偏暗": {
+      "total": 5,
+      "success": 4
+    },
+    "光照过亮": {
+      "total": 6,
+      "success": 3
+    },
+    "加噪声": {
+      "total": 1,
+      "success": 0
+    },
+    "倾斜旋转": {
+      "total": 5,
+      "success": 1
+    },
+    "低分辨率": {
+      "total": 5,
+      "success": 3
+    },
+    "对比度变化": {
+      "total": 4,
+      "success": 1
+    },
+    "模糊": {
+      "total": 4,
+      "success": 3
+    },
+    "缩放变化": {
+      "total": 4,
+      "success": 3
+    },
+    "局部裁剪": {
+      "total": 4,
+      "success": 1
+    },
+    "局部遮挡": {
+      "total": 4,
+      "success": 3
+    },
+    "背景复杂": {
+      "total": 4,
+      "success": 3
+    }
+  },
+  "failure_reasons": {
+    "exception": 22
+  }
+}

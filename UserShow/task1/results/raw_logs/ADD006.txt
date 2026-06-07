@@ -1,0 +1,19 @@
+身份证有效
+CARD_YEAR 1984
+CARD_MON 02
+CARD_DAY 17
+CARD_GENDER 男
+
+Traceback (most recent call last):
+  File "E:\OpenCVProjects\tansyqinyrproj\tools\task1_id_recognition_dataset.py", line 263, in run_ocr
+    res = ocr_main(str(path))
+          ^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\main.py", line 12, in ocr_main
+    res = ocr_operation.detect(path)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\ocr_operation.py", line 51, in detect
+    text_dict = func.get_chinese_char(gray_char_area_img)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\functions.py", line 424, in get_chinese_char
+    raise Exception('获取各行起始坐标失败！')
+Exception: 获取各行起始坐标失败！

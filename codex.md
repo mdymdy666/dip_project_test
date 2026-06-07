@@ -484,3 +484,23 @@ vehicle_db.database_summary()
 - 完成事项：完成 `UserShow/6-7task/` 资料包 Git 提交和 GitHub 推送。提交信息为 `Add June 7 ID card robustness delivery package`，commit hash 为 `023356964730b816eddc79b074fcdb38bf461a5a`，已推送到 GitHub 远程 `https://github.com/mdymdy666/dip_project_test.git` 的 `main` 分支。
 - 当前发现：本轮提交包含 `UserShow/6-7task/` 下的完整交付包和仓库日志文件；没有暂存或提交既有未提交的 `app.py`、`core/vehicle_db.py`、数据库和 tmp 图片改动。推送后仓库仍保留这些既有未提交本地改动，未做破坏性操作。
 - 下一步：同步本条日志到仓库并完成最终回复，向用户说明 GitHub 上传结果、路径、commit hash、交付内容和遗留的本地未提交改动。
+
+## 2026-06-07 18:49
+- 完成事项：完成最终日志同步提交并推送。第二个提交信息为 `Record June 7 delivery upload log`，commit hash 为 `c6692720f0c285ccfdf11b3df0198a56d7dfb7ea`，GitHub 远程 `main` 分支已更新到该提交。
+- 当前发现：GitHub 上传成功；远程包含 `UserShow/6-7task/` 完整交付包、交付审查报告、最终 PPT、截图/表格/脚本和日志摘录。仓库本地仍有既有未提交的业务和 tmp 改动，本轮未处理。
+- 下一步：向用户汇报最终路径、远程仓库、分支、commit hash、上传内容和保留未提交改动。
+
+## 2026-06-07 18:56
+- 完成事项：开始本轮 `UserShow/6-7task2/` 改进过程整理任务。已复盘 `Codex.md`、`UserShow/6-7task/`、`UserShow/PerfectData/`、`ppt_assets/test_results/`、`UserShow/test_summary.csv` 和相关脚本，确认可复用的身份证/车牌检测数据、截图和中间处理图。
+- 当前发现：用户给出的参考截图位于 `D:\Users\m\Downloads\944E83AB7EA2B6E470BEAE1948A77B9C.png`，可作为本轮“定量实验设计/每一步改进有价值”版式依据。身份证改进链路主要包括水印/遮挡问题修复、预处理与鲁棒性测试、PerfectData 成功样例筛选；车牌改进链路主要包括纯合成批量失败、样本风格适配、定位/裁剪/预处理/后处理修复和 PerfectData 好结果整理。
+- 下一步：创建 `UserShow/6-7task2/`，按身份证 4 个 step、车牌 6 个 step 组织 README、数据表、截图、图表、精选上传材料和内部分析材料。
+
+## 2026-06-07 19:24
+- 完成事项：按用户最新要求切换到 `UserShow/task1/` 身份证识别数据集与测试归档任务，停止继续推进上一轮 `6-7task2`。已检查 `datas/`、身份证 OCR 入口、协作记录和 Git 仓库状态。
+- 当前发现：`datas/` 当前有 7 张图片，其中 6 张是可单独测试的身份证图，`robustness_grid.png` 是拼图总览，不作为单张 OCR 测试样本。身份证识别入口为 `core.main.ocr_main(path)`，实际调用 `core/ocr_operation.py` 的灰度化、二值化、形态学处理、号码区域定位和 OCR。用户强调“不允许使用虚拟的”，本轮将基于项目已有真实样式身份证图做脱敏和不完美场景扰动，不采集或上传真实个人隐私信息。
+- 下一步：新增 task1 脚本，保留 `datas/` 原图，补充至少 44 张基于已有真实样式图处理得到的脱敏测试图，使最终参与测试图片不少于 50 张；随后逐张运行 OCR，输出成功/失败样例、CSV/JSON、图表和 `task1.md`。
+
+## 2026-06-07 19:31
+- 完成事项：新增并运行 `tools/task1_id_recognition_dataset.py`，完成 task1 身份证数据补充、OCR 批量测试、成功/失败截图、统计图、CSV/JSON 和总结文档生成。输出目录为 `UserShow/task1/`，新增处理图目录为 `datas/task1_processed/`。
+- 当前发现：本轮保留 `datas/` 6 张可单独测试身份证图，并基于这些图像处理生成 46 张补充测试图，最终测试样本 52 张；不使用外部真实身份证，也不使用虚拟身份证生成器，AI 生成身份证数量为 0。实际 OCR 结果为全量 30 成功、22 失败，全量可用身份证号检出率 57.69%；展示样例集为 30 成功、1 失败，展示成功率 96.77%。`UserShow/task1/` 当前包含 202 个文件、143 张 PNG，图片签名检查正常，`task1.md` 无占位内容。
+- 下一步：将 `datas/task1_processed/`、`UserShow/task1/`、`tools/task1_id_recognition_dataset.py` 和 `Codex.md` 同步到 `dip_project_te` 仓库，只暂存本轮相关文件并推送 GitHub。

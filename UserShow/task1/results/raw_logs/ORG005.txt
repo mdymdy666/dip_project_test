@@ -1,0 +1,15 @@
+无效身份证= 44030119840217611X
+
+Traceback (most recent call last):
+  File "E:\OpenCVProjects\tansyqinyrproj\tools\task1_id_recognition_dataset.py", line 263, in run_ocr
+    res = ocr_main(str(path))
+          ^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\main.py", line 12, in ocr_main
+    res = ocr_operation.detect(path)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\ocr_operation.py", line 33, in detect
+    id_num, angle, id_rect = func.get_id_nums(regions, gray)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\OpenCVProjects\tansyqinyrproj\core\functions.py", line 401, in get_id_nums
+    raise Exception('身份证识别失败！！！')
+Exception: 身份证识别失败！！！
