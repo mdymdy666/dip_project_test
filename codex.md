@@ -534,3 +534,8 @@ vehicle_db.database_summary()
 - 完成事项：已重做身份证号码识别 A-E 消融实验，修正 E 组评价口径，并重新生成 `UserShow/task1_ablation/` 下的逐样本记录、汇总表、量化设计表、指标趋势图、每组结果卡、成功案例和少量失败案例。
 - 当前发现：新版 E 组不再调用完整身份证/车主联动流程，而是在与 A-D 相同的身份证号码评价口径下执行“D + ROI + 校正 + 白名单 OCR”。52 张样本结果为 A 定位 65.4%/OCR 61.8%/完全正确 30 张，B 定位 73.1%/OCR 50.5%/完全正确 19 张，C 定位 100.0%/OCR 98.2%/完全正确 42 张，D 定位 100.0%/OCR 98.2%/完全正确 42 张，E 定位 100.0%/OCR 99.4%/完全正确 51 张。E 仍保留 1 个低质图片失败案例用于边界分析，没有伪造为 100%。
 - 下一步：审查生成的图表与截图后，同步 `UserShow/task1_ablation/`、`tools/task1_ablation_experiment.py` 和日志到 `dip_project_te`，只暂存本轮相关文件并推送 GitHub。
+
+## 2026-06-07 21:03
+- 完成事项：完成重做后的消融实验材料审查、同步、提交和 GitHub 推送。提交信息为 `redo task1 ablation experiment with fair ROI pipeline`，commit hash 为 `d37a564e2a606a2c27c14a66ed036fbaed942ac5`，已推送到 GitHub 远程 `https://github.com/mdymdy666/dip_project_test.git` 的 `main` 分支。
+- 当前发现：本轮上传内容只包含 `UserShow/task1_ablation/`、`tools/task1_ablation_experiment.py` 和仓库日志 `codex.md`；未上传 PPT。审查结果为 561 个交付文件、557 张 PNG、2 个 CSV，PNG 签名正常，README 无占位内容。仓库中既有未提交的 `app.py`、`core/vehicle_db.py`、数据库和 tmp 图片改动仍保留未提交，未回滚、未覆盖。
+- 下一步：同步本条最终日志到仓库并向用户说明 E 之前下降的原因、重做后的指标、交付路径和 GitHub 上传结果。
